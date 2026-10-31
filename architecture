@@ -1,0 +1,52 @@
+linux-toolkit/
+│
+├── pyproject.toml
+├── uv.lock
+├── .python-version
+├── .gitignore
+├── README.md
+│
+├── src/
+│   └── linux_toolkit/
+│       │
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── app.py
+│       │
+│       ├── core/
+│       │   ├── __init__.py
+│       │   ├── config.py
+│       │   ├── logger.py
+│       │   └── exceptions.py
+│       │
+│       ├── application/
+│       │   └── __init__.py
+│       │
+│       ├── infrastructure/
+│       │   └── __init__.py
+│       │
+│       ├── ui/
+│       │   ├── __init__.py
+│       │   ├── windows/
+│       │   ├── components/
+│       │   └── themes/
+│       │
+│       └── modules/
+│           ├── __init__.py
+│           ├── file_manager/
+│           ├── system_monitor/
+│           ├── process_manager/
+│           ├── network/
+│           └── storage/
+│
+├── tests/
+│   ├── unit/
+│   └── integration/
+│
+├── docs/
+│   ├── architecture/
+│   └── development/
+│
+└── assets/
+    ├── icons/
+    └── images/
