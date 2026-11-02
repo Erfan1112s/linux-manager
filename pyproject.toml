@@ -5,8 +5,19 @@ version = "0.1.0"
 description = "A modular desktop toolkit for Linux"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "pySide6>=6.9,<7"
+]
 
 [build-system]
 requires = ["uv_build>=0.13.5,<0.14.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.12",
+    "pyright>=1.1",
+
+]
+
