@@ -6,15 +6,32 @@ import logging
 
 # پاس دادن تابع setup_logging به این فایل برای استفاده
 from linux_toolkit.core.logging import setup_logging
+# این کتابخانه حالت های برنامه را مشخص می کند 
+from enum import Enum
 
 # دریافت خروجی کتاب خانه در یک متغییر بصورت رشته
 logger = logging.getLogger(__name__)
 
-class LinuxToolkitApplication:
+class ApplicationState(Enum): # این کلاس حالت های برنامه را مشخص می کند
+    CREATED = "created" # این شئ حالت ساخت شدن برنامه است
+    INITIALIZING = "initializing" # مراحل آماده سازی در حال اجرا است 
+    INITIALIZED = "initialized" # آماده سازی با موفقیت انجام شده
+    RUNNING = "running" #برنامه در حال اجرا است 
+    STOPPED = "stopped" #برنامه متوقف شد
+    
+class ApplicationError(Exception): # کلاس برای نمایش خطاهای برنامه  
+    """کلاس برای نمایش خطاهای برنامه""" 
+    def __init__(self, message: str) -> None: # سازنده کلاس برای نمایش پیام خطا
+        super().__init__(message) # فراخوانی سازنده کلاس پایه برای نمایش پیام خطا
 
+
+class LinuxToolkitApplication:
 # این تابع مشخص می کنه که برنامه اروری دارد یا نه اگر ندارد پیام را در ترمینال چاپ می کند
 # اگر اروری پیداکرد از تریق تابع setup_logging که پاس داده شده از مسیر src/linux_toolkit/core/logging.py
 # ان را نمایش دهد 
-    def __init__(self):
+    def __init__(self) -> None:
         setup_logging()
-        logger.info("در حال انالیز کردن برنامه")
+        logger.info("initializing linux toolkit application")
+        self.state = ApplicationState.CREATED # حالت اولیه برنامه ساخت شده است
+
+
