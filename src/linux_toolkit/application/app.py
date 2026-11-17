@@ -33,14 +33,22 @@ class LinuxToolkitApplication:
     def __init__(self) -> None:
         setup_logging()
         logger.info("initializing linux toolkit application")
-        self.state = ApplicationState.CREATED # حالت اولیه برنامه ساخت شده است
+        self.state = ApplicationState.CREATED # حالت اولیه برنامه ساخت شده است و مدیریت وضعیت های مختلف برنامه
 
     def initialize(self) -> None: # این تابع برای آماده سازی برنامه است
+        if self.state in (
+            ApplicationState.INITIALIZING,
+            ApplicationState.INITIALIZED,
+            ApplicationState.RUNNING,
+        ):
+            logger.warning("Application is already initialized or running")
+            return
+            
         self.state = ApplicationState.INITIALIZING # حالت برنامه آماده سازی شده است
 
         try:
             # مرحله اماده سازی برنامه بعد قرار داده می شود 
-            raise RuntimeError("test error") # این خطا برای تست آماده سازی برنامه است و باید حذف شود
+            # raise RuntimeError("test error") # این خطا برای تست آماده سازی برنامه است و باید حذف شود
 
             self.state = ApplicationState.INITIALIZED # اماده سازی با موفقیت انجام شد 
             logger.info("Application initialized successfully")
@@ -50,3 +58,7 @@ class LinuxToolkitApplication:
             logger.error(f"Application failed to initialize: {error}") # نمایش خطا در ترمینال
 
             raise ApplicationError(f"Application failed to initialize: {error}", self.state) from error # نمایش خطا در ترمینال و مشخص کردن حالت برنامه
+
+    def stop(self) -> None: # این تابع برای متوقف کردن برنامه است
+        self.state = ApplicationState.STOPPED # حالت برنامه متوقف شد
+        logger.info("Application stopped") # نمایش پیام در ترمینال
